@@ -1,0 +1,82 @@
+﻿classDiagram
+
+    Car <|-- CarStatus
+    Car <|-- CarModel
+    class Car{
+        +int Id
+        +int CarModelId
+        +int ModelYear
+        +DateTime FirstRegistrationYear
+        +string RegisterNumber
+        +datetime Created
+        +datetime LastSeen
+    }
+
+    class CarMaker{
+        +int Id
+        +string Name
+    }
+
+    CarModel <|-- CarMaker
+    class CarModel{
+        +int Id
+        +int CarMakerId
+        +string Name
+    }
+    
+    class Status{
+        +int Id
+        +string Name
+    }
+
+    CarStatus <|-- Status
+    class CarStatus{
+        +int Id
+        +int CarId
+        +int StatusId
+        +int DataExtractionRunId
+        +bool PrivateSeller
+        +money Price
+        +datetime Created
+    }
+
+    DataFetchRun <|-- DataExtractionRun
+    class DataFetchRun{
+        +int Id
+        +datetime Runtime
+        +string Contents
+        +bool DataExtracted
+    }
+
+    DataExtractionRun <|-- CarStatus
+    class DataExtractionRun{
+        +int Id
+        +datetime Runtime
+        +int DataFetchRunId
+    }
+
+    Log <|-- LogType
+    Log <|-- DataFetchRun_Log
+    Log <|-- DataExtractionRun_Log
+    class Log{
+        +int Id
+        +datetime Created
+        +string Title
+        +string Message
+        +string Type
+    }
+
+    class LogType{
+        +int Id
+        +string Name
+    }
+
+    class DataFetchRun_Log{
+        +int UpdateRunId
+        +int LogId
+    }
+
+    class DataExtractionRun_Log{
+        +int DataExtractionRunId
+        +int LogId
+    }
